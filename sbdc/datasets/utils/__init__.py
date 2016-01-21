@@ -41,10 +41,7 @@ def dowload(origin, folder):
         return path
 
     filehandle, _ = urllib.urlretrieve(origin)
-
-    print filehandle
-
     zip_file_object = zipfile.ZipFile(filehandle, 'r')
-    print zip_file_object.extractall(path)
+    zip_file_object.extractall(path)
 
     return path
