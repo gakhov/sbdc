@@ -3,7 +3,7 @@ from __future__ import absolute_import
 
 import os
 import glob
-import pandas as pd
+import numpy as np
 
 from .utils import dowload
 
@@ -39,13 +39,13 @@ def load(classes=None):
 
     Parameters
     ----------
-    classes: iterable or None
+    classes: iterable or None, optional (default=None)
         List of required classes to load. If None, all classes will be loaded.
 
     Returns
     -------
-    documents: pandas.DataFrame
-        Return DataFrame with 3 columns: title, text, class
+    documents: array-like, shape (n_documents, 3)
+        Return matrix with 3 columns: class, title, text
 
     """
 
@@ -61,6 +61,6 @@ def load(classes=None):
         for filepath in glob.glob(files):
             with open(filepath) as f:
                 title, text = f.read().split("\n", 1)
-                documents.append([title.strip(), text.strip(), cls])
+                documents.append([cls, title.strip(), text.strip()])
 
-    return pd.DataFrame(documents, columns=["title", "text", "class"])
+    return np.array(documents)
