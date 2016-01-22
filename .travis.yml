@@ -1,10 +1,6 @@
 language: python
 python:
   - "2.7"
-  - "3.2"
-  - "3.3"
-  - "3.4"
-  - "3.5"
 
 notifications:
   email: false
@@ -29,7 +25,8 @@ before_install:
 install:
   - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION pip numpy nose
   - source activate test-environment
-  - pip install pep8 python-coveralls
+  - pip install pytest-cov python-coveralls pytest-xdist coverage==3.7.1 #we need this version of coverage for coveralls.io to work
+  - pip install pep8 pytest-pep8
   - python setup.py install
 
 script:
