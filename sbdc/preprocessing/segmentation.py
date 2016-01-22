@@ -3,6 +3,8 @@ from __future__ import absolute_import
 
 import numpy as np
 
+from functools import partial
+
 from ..exceptions import NotFittedError
 
 """
@@ -130,10 +132,51 @@ class ContiguousSegmentSet(object):
             Segment-set from each text in the X
         """
 
-        def split_by_paragraph(text):
-            segments = text.split("\n\n")
+        def split_by_paragraphs(text, min_length, vanish_strategy):
+            """Split text by paragraphs.
+
+            If ``min_length`` is set, provide an additional care about
+            small segments (strategy is defined by the ``vanish_strategy``)
+            """
+            paragraphs = text.split("\n\n")
+            if min_length is None:
+                return paragraphs
+
+            segments = []
+            pending_paragraph = None
+            for paragraph in paragraphs:
+                length = len(paragraph)
+
+                # Care about previous paragraphs waiting to merge
+                # when the vanish_strategy = "bottom"
+                if pending_paragraph is not None:
+                    paragraph = "{}\n\n{}".format(
+                        pending_paragraph,
+                        paragraph)
+                    pending_paragraph = None
+
+                if length >= min_length:
+                    segments.append(paragraph)
+                    continue
+                if vanish_strategy is None:
+                    continue
+                if vanish_strategy == "top":
+                    if len(segments) < 1:
+                        continue
+                    segments[-1] = "{}\n\n{}".format(
+                        segments[-1],
+                        paragraph)
+                    continue
+                if vanish_strategy == "bottom":
+                    pending_paragraph = paragraph
+                    continue
+
             return segments
 
-        split_by_paragraph = np.vectorize(
-            split_by_paragraph, otypes=[np.ndarray])
-        return split_by_paragraph(X)
+        split_by_paragraphs = np.vectorize(
+            partial(
+                split_by_paragraphs,
+                min_length=self.min_segment_length,
+                vanish_strategy=self.small_segment_vanish_strategy),
+            otypes=[np.ndarray])
+        return split_by_paragraphs(X)
