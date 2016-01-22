@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from sbdc.preprocessing import ContiguousSegmentSet
-from sbdc.datasets.bbc import load
+from sbdc.datasets import bbc_load
 
-X = load()
+X = bbc_load()
 
 cs = ContiguousSegmentSet(
     min_segment_length=100,
