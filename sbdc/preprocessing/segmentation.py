@@ -8,6 +8,8 @@ from functools import partial
 from ..exceptions import NotFittedError
 
 """
+Document Segmentation.
+
 Every document could be considered as being composed of contiguous,
 non-overlaping chunks of text, called segments. A set of segments
 called segment-set.

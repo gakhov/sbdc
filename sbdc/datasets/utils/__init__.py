@@ -6,13 +6,13 @@ import urllib
 import zipfile
 
 """
-Datasets Utils
+Datasets Utils.
 
 """
 
 
 def dowload(origin, folder):
-    """Download and (if needed) extract file from the origin to the folder
+    """Download and extract file from the `origin` to the `folder`.
 
     Parameters
     ----------

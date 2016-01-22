@@ -1,4 +1,10 @@
-# SBDC: Segment-based Document Clustering Pipeline
+# SBDC: Segment-based Document Clustering
+
+
+## Dependencies
+
+* NumPy, 1.7+
+
 
 ## References
 
