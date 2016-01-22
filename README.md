@@ -1,6 +1,7 @@
 # SBDC: Segment-based Document Clustering
 
 ![Build status](https://travis-ci.org/gakhov/sbdc.svg?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/gakhov/sbdc/badge.svg?branch=master)](https://coveralls.io/github/gakhov/sbdc?branch=master)
 
 ## Dependencies
 
