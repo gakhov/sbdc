@@ -5,7 +5,7 @@ import os
 import glob
 import numpy as np
 
-from .utils import dowload
+from .utils import download_zip
 
 """
 BBC News dataset.
@@ -51,7 +51,7 @@ def load(classes=None):
 
     """
 
-    path = dowload(DATASET_URL, "bbc")
+    path = download_zip(DATASET_URL, "bbc")
 
     classes = DATASET_CLASSES & set(classes) if classes else DATASET_CLASSES
     if not classes:
