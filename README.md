@@ -1,5 +1,6 @@
 # SBDC: Segment-based Document Clustering
 
+![Build status](https://travis-ci.org/gakhov/sbdc.svg?branch=master)
 
 ## Dependencies
 
