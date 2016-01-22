@@ -23,14 +23,14 @@ before_install:
   - conda info -a
 
 install:
-  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION pip numpy nose
+  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION pip numpy pytest
   - source activate test-environment
   - pip install pytest-cov python-coveralls pytest-xdist coverage==3.7.1 #we need this version of coverage for coveralls.io to work
   - pip install pep8 pytest-pep8
   - python setup.py install
 
 script:
-  - nosetests --with-coverage --cover-package=sbdc --cov-config .coveragerc --logging-level=INFO
+  - PYTHONPATH=$PWD:$PYTHONPATH py.test -s -v --pep8 --cov=sbdc --cov-config .coveragerc --cov-report term-missing tests
 
 after_success:
   - coveralls --config_file .coveragerc
